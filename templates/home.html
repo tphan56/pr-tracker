@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel = "stylesheet" href = "static/home.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="blob"></div>
+
+<div class="content">
+  <div class="eyebrow">Personal Record Tracker</div>
+
+<div class = "logo-anim" id = "logo-anim">
+    <a href = "/app">
+        <img src = "/static/dumbbell.png" alt = "Dumbell" />
+    </a>
+</div>
+
+  <div class="quote" id="quote"></div>
+
+  <div class="name-section">
+    <div class="name-label">What's your name, athlete?</div>
+    <input class="name-input" id="name-input" type="text" placeholder="YOUR NAME" maxlength="20" />
+  </div>
+
+  <div class="cta">
+    <a href="/app" id="cta-btn">Start Tracking</a>
+  </div>
+</div>
+
+<div class="bottom">No excuses. Only PRs.</div>
+
+<script>
+  const quotes = [
+    "The only bad workout is the one that didn't happen.",
+    "Your body can stand almost anything. It's your mind you have to convince.",
+    "Success is what comes after you stop making excuses.",
+    "The pain you feel today will be the strength you feel tomorrow.",
+    "Don't wish for it. Work for it.",
+  ];
+
+  // Pick a random quote
+  document.getElementById('quote').textContent =
+    quotes[Math.floor(Math.random() * quotes.length)];
+
+  // Personalize the button with the user's name
+  const input = document.getElementById('name-input');
+  const btn = document.getElementById('cta-btn');
+
+  // Load saved name
+  const saved = localStorage.getItem('pr_name');
+  if (saved) {
+    input.value = saved;
+    btn.textContent = `Let's Go, ${saved}`;
+  }
+
+  input.addEventListener('input', () => {
+    const name = input.value.trim();
+    localStorage.setItem('pr_name', name);
+    btn.textContent = name ? `Let's Go, ${name}` : 'Start Tracking';
+  });
+</script>
+
+</body>
+</html>
