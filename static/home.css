@@ -60,7 +60,9 @@
 
     /* Eyebrow label */
     .eyebrow {
-      font-size: 0.7rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+      font-size: 1.5rem;
+      font-weight: 700;
       letter-spacing: 0.5em;
       text-transform: uppercase;
       color: #671b7c;
@@ -178,7 +180,7 @@
       background: white;
       color: #361041;
       transform: translateY(-3px);
-      box-shadow: 0 20px 40px #ff3c0044;
+      box-shadow: 0 20px 40px #671b7c;
     }
 
     .cta a:hover::after { opacity: 0.1; }

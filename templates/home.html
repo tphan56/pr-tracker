@@ -24,41 +24,21 @@
 
   <div class="quote" id="quote"></div>
 
-  <div class="name-section">
-    <div class="name-label">What's your name, athlete?</div>
-    <input class="name-input" id="name-input" type="text" placeholder="YOUR NAME" maxlength="20" />
-  </div>
-
-  <div class="cta">
-    <a href="/app" id="cta-btn">Start Tracking</a>
-  </div>
-</div>
-
-<div class="bottom">No excuses. Only PRs.</div>
+<div class="bottom">Developed by Tommy</div>
 
 <script>
   const quotes = [
-    "The only bad workout is the one that didn't happen.",
-    "Your body can stand almost anything. It's your mind you have to convince.",
-    "Success is what comes after you stop making excuses.",
-    "The pain you feel today will be the strength you feel tomorrow.",
-    "Don't wish for it. Work for it.",
+    "'Everyting negative - pressure, challenges - is all an opportunity for me to rise.' ― Kobe Bryant",
+    "'Talent without working hard is nothing' - Cristiano Ronaldo",
+    "'Don't be afraid of failure. This is the way to succeed' - LeBron James",
+    "'The last three or four reps is what makes the muscle grow.' -Arnold Schwarzenegger",
+    "'The day you think there is no improvement to be made, is a sad one.' -Lionel Messi",
   ];
 
   // Pick a random quote
   document.getElementById('quote').textContent =
     quotes[Math.floor(Math.random() * quotes.length)];
 
-  // Personalize the button with the user's name
-  const input = document.getElementById('name-input');
-  const btn = document.getElementById('cta-btn');
-
-  // Load saved name
-  const saved = localStorage.getItem('pr_name');
-  if (saved) {
-    input.value = saved;
-    btn.textContent = `Let's Go, ${saved}`;
-  }
 
   input.addEventListener('input', () => {
     const name = input.value.trim();
