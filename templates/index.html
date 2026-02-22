@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel = "stylesheet" href = "/static/style.css">
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR Tracker</title>
+</head>
+<body>
+
+  <header>
+    <h1>PR Tracker</h1>
+  </header>
+
+  <div class="main">
+
+    <aside class="sidebar">
+      <h2>Exercises</h2>
+      <ul id="exercise-list"></ul> 
+
+      <h2>Add New</h2>
+      <input type="text" id="new-exercise" placeholder="Exercise name..." />
+      <button onclick="addExercise()">Add</button>
+    </aside>
+
+    <main class="content">
+      <div id="empty-state">
+        <p>Select an exercise to get started</p>
+      </div>
+
+      <div id="exercise-view" style="display:none">
+        <h2 id="view-title"></h2>
+        <p>Current PR: <strong id="current-pr">—</strong></p>
+
+        <div class="log-form">
+          <input type="number" id="log-weight" placeholder="Weight" />
+          <input type="number" id="log-reps" placeholder="Reps" />
+          <select id="log-unit">
+            <option value="lbs">lbs</option>
+            <option value="kg">kg</option>
+          </select>
+          <input type="date" id="log-date" />
+          <button onclick="logSet()">Log Set</button>
+        </div>
+
+        <div id="hype-box" style="display:none">
+          <p id="hype-text"></p>
+        </div>
+
+        <h3>History</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Weight</th>
+              <th>Reps</th>
+            </tr>
+          </thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+    </main>
+
+  </div>
+
+</body>
+</html>
