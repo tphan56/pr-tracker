@@ -133,7 +133,7 @@
     </tr>
   `).join('');
     }
-
+//log data to backend api
     async function logSet(){
       //data
       const weight = parseFloat(document.getElementById('log-weight').value);
@@ -163,12 +163,33 @@
         document.getElementById('log-weight').value = '';
         document.getElementById('log-reps').value = '';
         await loadlogs(selectedExerciseId);
-
-
       };
 
-  
+//save new exercise to database and shows it in the sidebar
+      async function addExercise(){
+        const input = document.getElementById('new-exercise');
+        const name = input.value.trim();
+        if (!name) return;
+        const res = await fetch('/api/exercises', {
+          method: 'POST',
+          headers: {'Content-Type': '/application/json'},
+          body:JSON.stringify({name})
+        });
 
+        if (res.ok) {
+          const ex = await res.json();
+          exercises.push(ex);
+          renderExcerciseList();
+          input.value = '';
+          selectExercise(ex.id, ex.name);
+
+        }
+        //loads exercises to fetch all exercises and put it in the sidebar
+        loadExercises();
+
+      }
+
+  
     
     
 
