@@ -7,7 +7,6 @@
   <title>PR Tracker</title>
 </head>
 <body>
-
   <header>
     <h1>PR Tracker</h1>
   </header>
@@ -62,6 +61,121 @@
     </main>
 
   </div>
+
+  <script>
+
+    let exercises = [];
+    let selectedExerciseId = null;
+
+    async function loadExercises() {
+      const res = await fetch('/api/exercises');
+      exercises = await res.json();
+      renderExcerciseList();
+    }
+
+    // gets list of exercises and put it in the li 
+    function renderExcerciseList(){
+      const ul = document.getElementById('exercise-list');
+       ul.innerHTML = exercises.map(ex => `
+    <li class="${ex.id === selectedExerciseId ? 'active' : ''}"
+        onclick="selectExercise(${ex.id}, '${ex.name}')">
+      ${ex.name}
+    </li>
+  `).join('');
+
+    }
+// function when selected an exercise
+    async function selectExercise(id, name){
+      selectExerciseId = id
+      renderExerciseList();
+      //once clicked, will hide the message and u view the selected exercises
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('exercise-view').style.display = 'block';
+  //shows the name of the exercise u selected
+  document.getElementById('view-title').textContent = name;
+  document.getElementById('hype-box').style.display = 'none';
+  await loadLogs(id);
+    }
+// fetch logs for selected exercises
+    async function loadlogs(id){
+      const res = await fetch(`/api/logs/${id}`);;
+      const logs = await res.json(); 
+      renderHistory(logs);
+      updateCurrentPR(logs);
+    }
+
+    //show current pr on top
+    function updateCurrentPR(logs){
+      const prs = logs.filter(l => l.is_pr);
+      if (prs.length == 0){
+        document.getElementById('current-pr').textContent = '-';
+        return;
+      }
+      const best = prs.reduce((a,b) => a.weight > b.weight ? a : b);
+      document.getElementById('current-pr').textContent = `${best.weight}${best.unit}`;
+    }
+ 
+    //history of workouts
+    function renderHistory(logs){
+      const hisbody = document.getElementById('history-body');
+      //if no logs, shows error message
+      if(logs.length === 0){
+        hisbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:#444;padding:40px">No sets logged yet</td></tr>`;
+    return;
+      }
+
+      //show the list of exercises u did
+      hisbody.innerHTML = [...logs].reverse().map(l => `
+    <tr class="${l.is_pr ? 'is-pr' : ''}">
+      <td>${l.date}</td>
+      <td>${l.weight}${l.unit}</td>
+      <td>${l.reps} reps</td>
+    </tr>
+  `).join('');
+    }
+
+    async function logSet(){
+      //data
+      const weight = parseFloat(document.getElementById('log-weight').value);
+      const reps = parseInt(document.getElementById('log-reps').value);
+      const unit = document.getElementById('log-unit'.value);
+      const date = documnet.getElementById('log-date'.value);
+
+      if (!weight || !reps){
+        alert('Enter weight and reps.');
+        return;
+      }
+//post data to backend
+    const res = await fetch('/api/logs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ exercise_id: selectedExerciseId, weight, reps, unit, date })
+  });
+    const data = await res.json();
+
+//if u hit the pr, u get a hype text
+        if (data.is_pr){
+          const box = document.getElementById('hype-box');
+          document.getElementById('hype-text').textContent = 'New PR is set. Keep growing';
+          box.style.display = 'block';
+        }
+
+        document.getElementById('log-weight').value = '';
+        document.getElementById('log-reps').value = '';
+        await loadlogs(selectedExerciseId);
+
+
+      };
+
+  
+
+    
+    
+
+
+
+  </script>
+
 
 </body>
 </html>
