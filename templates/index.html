@@ -80,9 +80,9 @@
     function renderExcerciseList(){
       const ul = document.getElementById('exercise-list');
        ul.innerHTML = exercises.map(ex => `
-    <li class="${ex.id === selectedExerciseId ? 'active' : ''}"
-        onclick="selectExercise(${ex.id}, '${ex.name}')">
-      ${ex.name}
+    <li class="${ex.id === selectedExerciseId ? 'active' : ''}">
+      <span onclick="selectExercise(${ex.id}, '${ex.name}')">${ex.name}</span>
+      <button onclick="deleteExercise(${ex.id})" class="delete-btn">x</button>
     </li>
   `).join('');
 
@@ -187,11 +187,28 @@
           selectExercise(ex.id, ex.name);
 
         }
-
+        if (name == name){
+          alert("You have already added this exercise");
+        }
       }
 
-  
+      async function deleteExercise(id) {
+          //if not wanna delete
+        if (!confirm('Are you sure you want to delete this exercise and all of its current logs?')) return;
+          //fetch
+        await fetch(`/api/exercises/${id}`, { method: 'DELETE' });
+          //filter
+        exercises = exercises.filter(ex => ex.id !== id);
+          //logic
+        if (selectedExerciseId === id){
+          selectedExerciseId = null;
+          document.getElementById('exercise-view').style.display = 'none';
+          document.getElementById('empty-state').style.display = 'block';
+        }
+          renderExcerciseList();
+      }
   loadExercises();
+    
   </script>
 
   

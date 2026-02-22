@@ -116,6 +116,22 @@
     color: #f0ece4;
   }
 
+  .delete-btn {
+    background: none;
+    border: none;
+    color: #444;
+    cursor: pointer;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    width: auto;
+    transition: color 0.2s;
+  }
+
+  .delete-btn:hover {
+    color:#4d0851;
+    background: none;
+  }
+
   input, select, button {
     font-family: monospace;
     font-size: 0.85rem;

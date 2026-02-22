@@ -67,7 +67,17 @@ def add_exercise():
     except sqlite3.IntegrityError:
         conn.close()
         return jsonify({"error": "Exercise already exists"}), 409
-    
+
+#delete method
+@app.route("/api/exercises/<int:exercise_id>", methods=["DELETE"])
+def delete_exercise(exercise_id):
+    conn = get_db()
+    conn.execute("DELETE FROM pr_logs WHERE exercise_id = ?", (exercise_id,))
+    conn.execute("DELETE FROM exercises WHERE id = ?", (exercise_id,))
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})
+
 #logs
 @app.route("/api/logs", methods=["POST"])
 def log_set():
