@@ -87,7 +87,7 @@
 // function when selected an exercise
     async function selectExercise(id, name){
       selectExerciseId = id
-      renderExerciseList();
+      renderExcerciseList();
       //once clicked, will hide the message and u view the selected exercises
   document.getElementById('empty-state').style.display = 'none';
   document.getElementById('exercise-view').style.display = 'block';
@@ -97,7 +97,7 @@
   await loadLogs(id);
     }
 // fetch logs for selected exercises
-    async function loadlogs(id){
+    async function loadLogs(id){
       const res = await fetch(`/api/logs/${id}`);;
       const logs = await res.json(); 
       renderHistory(logs);
@@ -162,7 +162,7 @@
 
         document.getElementById('log-weight').value = '';
         document.getElementById('log-reps').value = '';
-        await loadlogs(selectedExerciseId);
+        await loadLogs(selectedExerciseId);
       };
 
 //save new exercise to database and shows it in the sidebar
@@ -172,7 +172,7 @@
         if (!name) return;
         const res = await fetch('/api/exercises', {
           method: 'POST',
-          headers: {'Content-Type': '/application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body:JSON.stringify({name})
         });
 
@@ -184,18 +184,15 @@
           selectExercise(ex.id, ex.name);
 
         }
-        //loads exercises to fetch all exercises and put it in the sidebar
-        loadExercises();
 
       }
 
   
-    
-    
-
-
-
+  loadExercises();
   </script>
+
+  
+
 
 
 </body>
