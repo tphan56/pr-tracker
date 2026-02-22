@@ -1,0 +1,202 @@
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #f0ece4;
+      font-family: 'Space Mono', monospace;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Animated background dots */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #ffffff08 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: bgMove 20s linear infinite;
+    }
+
+    /* moves the whole thing to make a cute transition */
+
+    @keyframes bgMove {
+      from { background-position: 0 0; }
+      to { background-position: 40px 40px; }
+    }
+
+    /* Glow blob */
+    .blob {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #361041, transparent 70%);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    /* Eyebrow label */
+    .eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: #671b7c;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .logo-anim {
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .logo-anim img {
+        height: 140px;
+        width: auto;
+        mix-blend-mode: screen;
+        animation: swing 3s ease-in-out infinite;
+        transform-origin: center;
+        transition: filter 0.3s ease;
+    }
+/* makes dumbbell image turn white on the hover */
+    .logo-anim img:hover {
+      filter: invert(1)  drop-shadow(0 0 20px #361041);
+
+    }
+
+    @keyframes flicker {
+      0%, 95%, 100% { opacity: 1; }
+      96% { opacity: 0.4; }
+      97% { opacity: 1; }
+      98% { opacity: 0.2; }
+      99% { opacity: 1; }
+    }
+
+    /* Quote */
+    .quote {
+      font-size: 0.85rem;
+      color: #555;
+      max-width: 400px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+      border-left: 2px solid #361041;
+      padding-left: 16px;
+      text-align: left;
+    }
+
+    /* Name input */
+    .name-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .name-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .name-input {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #333;
+      color: #f0ece4;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      text-align: center;
+      outline: none;
+      width: 300px;
+      padding: 8px 0;
+      letter-spacing: 0.1em;
+      transition: border-color 0.2s;
+    }
+
+    .name-input::placeholder { color: #333; }
+    .name-input:focus { border-color: #361041; }
+
+    /* Button */
+    .cta {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1s;
+    }
+
+    .cta a {
+      display: inline-block;
+      background: #361041;
+      color: white;
+      text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+      padding: 16px 48px;
+      border-radius: 2px;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      transition: filter 0.3s ease
+    }
+
+    .cta a::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: white;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .cta a:hover {
+      background: white;
+      color: #361041;
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px #ff3c0044;
+    }
+
+    .cta a:hover::after { opacity: 0.1; }
+
+    /* Bottom label */
+    .bottom {
+      position: fixed;
+      bottom: 24px;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: #222;
+      text-transform: uppercase;
+      animation: fadeUp 0.8s ease forwards 1.2s;
+      opacity: 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  
