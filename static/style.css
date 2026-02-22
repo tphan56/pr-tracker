@@ -1,0 +1,196 @@
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: monospace;
+    background: #0a0a0a;
+    color: #f0ece4;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 24px 40px;
+    border-bottom: 3px solid #361041;
+  }
+
+
+
+  header h1 {
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .main {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: calc(100vh - 73px);
+  }
+
+  .sidebar {
+    background: #111;
+    border-right: 1px solid #222;
+    padding: 24px;
+  }
+
+  .sidebar h2 {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #361041;
+    margin-bottom: 12px;
+    margin-top: 24px;
+  }
+
+  .sidebar {
+    animation: slideinLeft 0.5s ease forwards;
+  }
+
+  @keyframes slideinLeft{
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  #exercise-list {
+    list-style: none;
+    margin-bottom: 16px;
+  }
+
+  #exercise-list li {
+    padding: 10px 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  #exercise-list li:hover {
+    border-color: #222;
+    color: #f0ece4;
+  }
+
+  #exercise-list li.active {
+    border-color: #361041;
+    color: #f0ece4;
+  }
+
+  input, select, button {
+    font-family: monospace;
+    font-size: 0.85rem;
+    border-radius: 2px;
+  }
+
+  input, select {
+    background: #1a1a1a;
+    border: 1px solid #222;
+    color: #f0ece4;
+    padding: 8px 12px;
+    width: 100%;
+    margin-bottom: 8px;
+    outline: none;
+  }
+
+  input:focus, select:focus {
+    border-color: #361041;
+  }
+
+  button {
+    background: #361041;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    width: 100%;
+  }
+
+  button:hover {
+    background: #361041;
+  }
+
+  .content {
+    padding: 40px;
+  }
+
+  #exercise-view h2 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  #current-pr {
+    color: #ffd700;
+    font-size: 1.2rem;
+  }
+
+  .log-form {
+    background: #111;
+    border: 1px solid #222;
+    border-top: 3px solid #361041;
+    padding: 24px;
+    margin: 24px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 100px 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+
+  .log-form button {
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .log-form input, .log-form select {
+    margin-bottom: 0;
+  }
+
+  #hype-box {
+    background: #1a0800;
+    border: 2px solid #361041;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #361041;
+    margin-bottom: 12px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #666;
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid #222;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #161616;
+    font-size: 0.85rem;
+  }
+
+  tr.is-pr td {
+    color: #ffd700;
+  }
+
+  
