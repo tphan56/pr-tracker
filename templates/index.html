@@ -23,6 +23,7 @@
       <h2>Add New</h2>
       <input type="text" id="new-exercise" placeholder="Exercise name..." />
       <button onclick="addExercise()">Add</button>
+      <p id="add-error" style="color:#ff3c00; font-size:0.75rem; margin-top:8px;"></p>
     </aside>
 
     <main class="content">
@@ -185,12 +186,19 @@
           renderExcerciseList();
           input.value = '';
           selectExercise(ex.id, ex.name);
+          showaddError('');
+        }else{
+          const err = await res.json();
+          showaddError(err.error);
+        }
 
         }
-        if (name == name){
-          alert("You have already added this exercise");
+        function showaddError(msg){
+          document.getElementById('add-error').textContent = msg;
+
         }
-      }
+        
+      
 
       async function deleteExercise(id) {
           //if not wanna delete

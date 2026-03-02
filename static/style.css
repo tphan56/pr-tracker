@@ -4,7 +4,7 @@
     padding: 0;
   }
 
-  body {
+  body { 
     font-family: monospace;
     background: #000000;
     color: #666;
@@ -154,6 +154,7 @@
   }
 
   button {
+    /* smooth trasition (opacity and animation) */
     opacity: 0;
     animation: fadeIn 0.3s ease forwards 0.5s; 
     background: #361041;

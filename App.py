@@ -1,6 +1,12 @@
+from http import client
+from os import error
+from unittest import result
+
 from flask import Flask, json, jsonify, render_template, request
 import sqlite3
 import urllib.request
+import requests
+
 
 app = Flask(__name__)
 
@@ -12,13 +18,15 @@ def get_db():
 
 def init_db():
     conn = get_db()
-    #recreate tables that already exists
+    #recreate tables that already exists (list of exercises)
     conn.execute("""
-                     CREATE TABLE IF NOT EXISTS exercises (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT UNIQUE NOT NULL
-                 )
-             """)
+        CREATE TABLE IF NOT EXISTS exercises (
+                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                 name TEXT UNIQUE NOT NULL
+            )
+                 """)
+    
+    #create another table for personal records
     conn.execute("""
         CREATE TABLE IF NOT EXISTS pr_logs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,19 +62,34 @@ def get_exercises():
 @app.route("/api/exercises", methods = ["POST"])
 def add_exercise():
     data = request.json
-    name = data.get("name", "").strip()
+    name = data.get("name", "").strip().title().lower()
     if not name:
         return jsonify({"error": "Name Required"})
+    
+    # API to check if real exercise or not
+    #define api key and url and headers
+    try:
+        api_key = "kgEwbxO2sncFUstMAHPHLJmVKARHiQl2YkGW6vgV"
+        response = requests.get(f"https://api.api-ninjas.com/v1/exercises?name={name}", headers={"X-Api-Key": api_key})
+        #gets the api data and turn it to text/json
+        results = response.json()
+        #if statement to see if the user input list matches the api list
+        if len(results) == 0:
+            return jsonify({"error": f"'{name}' is not an exercise!"}), 400#when u send api wrong data
+    except requests.RequestException as e:
+        print("API Error", e)
     conn = get_db()
     try:
+        #if exercise is already in the list
         cur = conn.execute("INSERT INTO exercises (name) VALUES (?)", (name,))
         conn.commit()
         ex_id = cur.lastrowid
         conn.close()
+        #jsonify it
         return jsonify({"id": ex_id, "name": name})
     except sqlite3.IntegrityError:
         conn.close()
-        return jsonify({"error": "Exercise already exists"}), 409
+        return jsonify({"error": "This exercise already exists!"}), 409
 
 #delete method
 @app.route("/api/exercises/<int:exercise_id>", methods=["DELETE"])
