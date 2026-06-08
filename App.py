@@ -1,18 +1,15 @@
-from http import client
-from os import error
-from unittest import result
-
 from flask import Flask, json, jsonify, render_template, request
 import sqlite3
 import urllib.request
 import requests
+import os
 
 
 app = Flask(__name__)
 
 #helper function that opens connection to the database (opening a file before you can read/write)
 def get_db():
-    conn = sqlite3.connect("prs.db") #open
+    conn = sqlite3.connect("prs.db", timeout = 10) #open
     conn.row_factory = sqlite3.Row #results to dicts
     return conn
 
@@ -69,8 +66,15 @@ def add_exercise():
     # API to check if real exercise or not
     #define api key and url and headers
     try:
-        api_key = "kgEwbxO2sncFUstMAHPHLJmVKARHiQl2YkGW6vgV"
-        response = requests.get(f"https://api.api-ninjas.com/v1/exercises?name={name}", headers={"X-Api-Key": api_key})
+        api_key = os.getenv("API_NINJAS_KEY")
+
+        if not api_key:
+            return jsonify({"error": "API key is missing. Set API_NINJAS_KEY as an environment variable."}), 500
+
+        response = requests.get(
+             f"https://api.api-ninjas.com/v1/exercises?name={name}",
+             headers={"X-Api-Key": api_key}
+        )
         #gets the api data and turn it to text/json
         results = response.json()
         #if statement to see if the user input list matches the api list
