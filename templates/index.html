@@ -90,7 +90,7 @@
     }
 // function when selected an exercise
     async function selectExercise(id, name){
-      selectExerciseId = id
+      selectedExerciseId = id
       renderExcerciseList();
       //once clicked, will hide the message and u view the selected exercises
   document.getElementById('empty-state').style.display = 'none';
@@ -142,8 +142,8 @@
       //data
       const weight = parseFloat(document.getElementById('log-weight').value);
       const reps = parseInt(document.getElementById('log-reps').value);
-      const unit = document.getElementById('log-unit'.value);
-      const date = documnet.getElementById('log-date'.value);
+      const unit = document.getElementById('log-unit').value;
+      const date = document.getElementById('log-date').value;
 
       if (!weight || !reps){
         alert('Enter weight and reps.');
@@ -189,7 +189,7 @@
           showaddError('');
         }else{
           const err = await res.json();
-          showaddError(err.error);
+          showaddError(err.error); /* returns the error that flask put (our api) */
         }
 
         }

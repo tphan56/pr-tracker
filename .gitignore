@@ -3,3 +3,4 @@ prs.db
 __pycache__/
 *.pyc
 venv/
+prs.db
